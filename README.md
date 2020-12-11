@@ -1,1 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# test-presets
+
+Playing with a mechanism for style presets
