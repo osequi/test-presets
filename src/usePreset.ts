@@ -14,11 +14,15 @@ const usePreset = (type?: string, name?: string, state?: TElementState) => {
   });
 
   const styles = preset?.styles;
+  const stylesForState =
+    styles && styles.filter((style) => style.state === state);
+  const styles2 = state ? stylesForState : styles;
 
   return (
-    styles &&
-    styles.map((item) => {
-      const { state, presets, css } = item;
+    styles2 &&
+    styles2.map((style) => {
+      //// NOTE: for some reason `state` gets *not* confused and all works fine.
+      const { state, presets, css } = style;
 
       const presetsObject =
         presets &&
