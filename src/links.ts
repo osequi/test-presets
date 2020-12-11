@@ -17,10 +17,12 @@ const defaultLink: TLink = {
         {
           type: "colors",
           name: "default",
+          state: "default",
         },
         {
           type: "font",
           name: "default",
+          state: "default",
         },
       ],
       css: {
@@ -38,7 +40,8 @@ const defaultLink: TLink = {
       presets: [
         {
           type: "colors",
-          name: "disabled",
+          name: "default",
+          state: "disabled",
         },
       ],
       css: {

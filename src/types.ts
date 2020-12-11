@@ -10,8 +10,9 @@ export type TElementState =
   | "hidden";
 
 export type TPreset = {
-  type: string;
-  name: string;
+  type?: string;
+  name?: string;
+  state?: TElementState;
 };
 
 export type TStyle = {
