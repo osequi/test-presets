@@ -1,12 +1,12 @@
 import type { TToken, TStyle } from "./theme";
 
-export type TFontsTokenId = "font";
-export type TFontsTokenNames = "Default" | "Nimbus Sans Regular";
+export type TFontId = "font";
+export type TFontNames = "Default" | "Nimbus Sans Regular";
 
 export type TFontsToken = TToken & {
   id: {
-    type: TFontsTokenId;
-    name: TFontsTokenNames;
+    type: TFontId;
+    name: TFontNames;
   };
   styles: TStyle[];
 };

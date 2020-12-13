@@ -1,16 +1,12 @@
 import type { TToken, TStyle } from "./theme";
 
-export type TColorsTokenId = "colors";
-export type TColorsTokenNames =
-  | "default"
-  | "inverted"
-  | "inactive"
-  | "highlighted";
+export type TColorId = "colors";
+export type TColorNames = "default" | "inverted" | "inactive" | "highlighted";
 
 export type TColorToken = TToken & {
   id: {
-    type: TColorsTokenId;
-    name: TColorsTokenNames;
+    type: TColorId;
+    name: TColorNames;
   };
   styles: TStyle[];
 };

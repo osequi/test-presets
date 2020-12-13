@@ -1,6 +1,6 @@
-import type { TColorsTokenId, TColorsTokenNames } from "./colors";
-import type { TFontsTokenId, TFontsTokenNames } from "./fonts";
-import type { TLinksTokenId, TLinksTokenNames } from "./links";
+import type { TColorId, TColorNames } from "./colors";
+import type { TFontId, TFontNames } from "./fonts";
+import type { TLinkId, TLinkNames } from "./links";
 
 import { default as colors } from "./colors";
 import { default as fonts } from "./fonts";
@@ -14,15 +14,12 @@ const tokens: TToken[] = [...colors, ...fonts, ...links];
 /**
  * Defines the available design token id types.
  */
-export type TTokenIdTypes = TColorsTokenId | TFontsTokenId | TLinksTokenId;
+export type TTokenIds = TColorId | TFontId | TLinkId;
 
 /**
  * Defines the available design token id names.
  */
-export type TTokenIdNames =
-  | TColorsTokenNames
-  | TFontsTokenNames
-  | TLinksTokenNames;
+export type TTokenNames = TColorNames | TFontNames | TLinkNames;
 
 /**
  * Defines the states an element can be.
@@ -34,9 +31,9 @@ export type TState = "default" | "active" | "visited" | "disabled" | "hidden";
  * Defines a design token id.
  * Uniquely identifies a design token.
  */
-export type TTokenId = {
-  type?: TTokenIdTypes;
-  name?: TTokenIdNames;
+export type TId = {
+  type?: TTokenIds;
+  name?: TTokenNames;
   state?: TState;
 };
 
@@ -47,7 +44,7 @@ export type TTokenId = {
  */
 export type TStyle = {
   state?: TState;
-  tokens?: TTokenId[];
+  tokens?: TId[];
   css?: object;
 };
 
@@ -57,7 +54,7 @@ export type TStyle = {
  * - Fully styled.
  */
 export type TToken = {
-  id?: TTokenId;
+  id?: TId;
   styles: TStyle[];
 };
 

@@ -1,7 +1,7 @@
 import type { TToken } from "./theme";
 
-export type TLinksTokenId = "link";
-export type TLinksTokenNames = "default";
+export type TLinkId = "link";
+export type TLinkNames = "default";
 
 const defaultLink: TToken = {
   id: {

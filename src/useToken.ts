@@ -1,4 +1,4 @@
-import type { TTokenIdTypes, TTokenIdNames, TState } from "./theme";
+import type { TTokenIds, TTokenNames, TState } from "./theme";
 import { default as theme } from "./theme";
 import { isNil, isArray } from "lodash";
 
@@ -14,8 +14,8 @@ import { isNil, isArray } from "lodash";
  * loadTokensRecursively("link", "default") => [{"state":"default","color":"#000","backgroundColor":"#fff","fontFamily":"Nimbus Sans Regular","fontWeight":400,"lineHeight":1.25,"textDecoration":"underline"},{"state":"active","color":"red","backgroundColor":"#000","textDecoration":"line-through"},{"state":"visited","color":"gray","backgroundColor":"#000","textDecoration":"underline"}]
  */
 const loadTokensRecursively = (
-  type?: TTokenIdTypes,
-  name?: TTokenIdNames,
+  type?: TTokenIds,
+  name?: TTokenNames,
   state?: TState
 ): object[] | null => {
   if (isNil(type) || isNil(name)) return null;
@@ -30,8 +30,8 @@ const loadTokensRecursively = (
     tokens &&
     tokens.find((token) => {
       const { id } = token;
-      const { type: tokenType, name: tokenName } = id;
-      return type === tokenType && name === tokenName;
+      const { type: tokenType, name: Name } = id;
+      return type === tokenType && name === Name;
     });
 
   if (isNil(token?.styles)) return null;
@@ -58,13 +58,13 @@ const loadTokensRecursively = (
         styleTokens.reduce((result, styleToken) => {
           const {
             type: styleTokenType,
-            name: styleTokenName,
+            name: styleName,
             state: styleTokenState,
           } = styleToken;
 
           const newToken = loadTokensRecursively(
             styleTokenType,
-            styleTokenName,
+            styleName,
             styleTokenState
           );
 
@@ -92,8 +92,8 @@ const loadTokensRecursively = (
  * useToken("link", "default") => [{"state":"default","color":"#000","backgroundColor":"#fff","fontFamily":"Nimbus Sans Regular","fontWeight":400,"lineHeight":1.25,"textDecoration":"underline"},{"state":"active","color":"red","backgroundColor":"#000","textDecoration":"line-through"},{"state":"visited","color":"gray","backgroundColor":"#000","textDecoration":"underline"}]
  */
 const useToken = (
-  type?: TTokenIdTypes,
-  name?: TTokenIdNames,
+  type?: TTokenIds,
+  name?: TTokenNames,
   state?: TState
 ): object[] | object | null => {
   const tokens = loadTokensRecursively(type, name, state);
