@@ -1,5 +1,12 @@
 import type { TToken } from "./theme";
 
+export type TColorsTokenId = "colors";
+export type TColorsTokenNames =
+  | "default"
+  | "inverted"
+  | "inactive"
+  | "highlighted";
+
 const textColor = "#000";
 const backgroundColor = "#fff";
 const highlightColor = "red";

@@ -1,5 +1,8 @@
 import type { TToken } from "./theme";
 
+export type TFontsTokenId = "font";
+export type TFontsTokenNames = "Default" | "Nimbus Sans Regular";
+
 const defaultFont: TToken = {
   id: {
     type: "font",

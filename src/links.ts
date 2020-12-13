@@ -1,5 +1,8 @@
 import type { TToken } from "./theme";
 
+export type TLinksTokenId = "link";
+export type TLinksTokenNames = "default";
+
 const defaultLink: TToken = {
   id: {
     type: "link",
@@ -7,7 +10,7 @@ const defaultLink: TToken = {
   },
   styles: [
     {
-      name: "default",
+      state: "default",
       tokens: [
         {
           type: "colors",
@@ -23,7 +26,7 @@ const defaultLink: TToken = {
       },
     },
     {
-      name: "active",
+      state: "active",
       tokens: [
         {
           type: "colors",
@@ -35,7 +38,7 @@ const defaultLink: TToken = {
       },
     },
     {
-      name: "visited",
+      state: "visited",
       tokens: [
         {
           type: "colors",
