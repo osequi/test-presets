@@ -1,9 +1,17 @@
-import type { TToken } from "./theme";
+import type { TToken, TStyle } from "./theme";
 
 export type TFontsTokenId = "font";
 export type TFontsTokenNames = "Default" | "Nimbus Sans Regular";
 
-const defaultFont: TToken = {
+export type TFontsToken = TToken & {
+  id: {
+    type: TFontsTokenId;
+    name: TFontsTokenNames;
+  };
+  styles: TStyle[];
+};
+
+const defaultFont: TFontsToken = {
   id: {
     type: "font",
     name: "Default",
@@ -18,7 +26,7 @@ const defaultFont: TToken = {
   ],
 };
 
-const nimbusSansRegular: TToken = {
+const nimbusSansRegular: TFontsToken = {
   id: {
     type: "font",
     name: "Nimbus Sans Regular",
@@ -34,5 +42,5 @@ const nimbusSansRegular: TToken = {
   ],
 };
 
-const fonts: TToken[] = [defaultFont, nimbusSansRegular];
+const fonts: TFontsToken[] = [defaultFont, nimbusSansRegular];
 export default fonts;

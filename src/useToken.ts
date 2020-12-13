@@ -6,12 +6,15 @@ const useToken = (
   type?: TTokenIdTypes,
   name?: TTokenIdNames,
   state?: TState
-) => {
+): object | null => {
   if (isNil(type) || isNil(name)) return null;
 
   if (isNil(theme?.tokens)) return null;
   const { tokens } = theme;
 
+  /**
+   * Loads the token.
+   */
   const token =
     tokens &&
     tokens.find((token) => {
@@ -24,7 +27,7 @@ const useToken = (
   const { styles } = token;
 
   /**
-   * Loads styles for a state.
+   * Loads token styles for a state.
    */
   const stylesForState =
     styles && styles.filter((style) => style.state === state);
@@ -37,20 +40,31 @@ const useToken = (
   return (
     styles2 &&
     styles2.map((style) => {
-      //// NOTE: for some reason `state` gets *not* confused and all works fine.
-      const { state, tokens, css } = style;
+      const { state: styleState, tokens: styleTokens, css } = style;
 
-      const tokensObject =
-        tokens &&
-        tokens.reduce((storedValue, token) => {
-          const { type, name } = token;
-          const value = useToken(type, name, state);
-          const valueFiltered =
-            value && value.filter((item) => item.state === state).pop();
-          return { ...storedValue, ...valueFiltered };
+      const styleTokensObject =
+        styleTokens &&
+        styleTokens.reduce((result, styleToken) => {
+          const {
+            type: styleTokenType,
+            name: styleTokenName,
+            state: styleTokenState,
+          } = styleToken;
+
+          const newToken = useToken(
+            styleTokenType,
+            styleTokenName,
+            styleTokenState
+          );
+
+          const newTokenFiltered =
+            newToken &&
+            newToken.filter((item) => item.state === styleTokenState).pop();
+
+          return { ...result, ...newTokenFiltered };
         }, {});
 
-      return { state: state, ...tokensObject, ...css };
+      return { state: styleState, ...styleTokensObject, ...css };
     })
   );
 };

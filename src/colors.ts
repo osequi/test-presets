@@ -1,4 +1,4 @@
-import type { TToken } from "./theme";
+import type { TToken, TStyle } from "./theme";
 
 export type TColorsTokenId = "colors";
 export type TColorsTokenNames =
@@ -7,12 +7,20 @@ export type TColorsTokenNames =
   | "inactive"
   | "highlighted";
 
+export type TColorToken = TToken & {
+  id: {
+    type: TColorsTokenId;
+    name: TColorsTokenNames;
+  };
+  styles: TStyle[];
+};
+
 const textColor = "#000";
 const backgroundColor = "#fff";
 const highlightColor = "red";
 const shaderColor = "gray";
 
-const defaultColorPair: TToken = {
+const defaultColorPair: TColorToken = {
   id: {
     type: "colors",
     name: "default",
@@ -27,7 +35,7 @@ const defaultColorPair: TToken = {
   ],
 };
 
-const invertedColorPair: TToken = {
+const invertedColorPair: TColorToken = {
   id: {
     type: "colors",
     name: "inverted",
@@ -42,7 +50,7 @@ const invertedColorPair: TToken = {
   ],
 };
 
-const inactiveColorPair: TToken = {
+const inactiveColorPair: TColorToken = {
   id: {
     type: "colors",
     name: "inactive",
@@ -57,7 +65,7 @@ const inactiveColorPair: TToken = {
   ],
 };
 
-const highlightedColorPair: TToken = {
+const highlightedColorPair: TColorToken = {
   id: {
     type: "colors",
     name: "highlighted",
@@ -72,7 +80,7 @@ const highlightedColorPair: TToken = {
   ],
 };
 
-const colors: TToken[] = [
+const colors: TColorToken[] = [
   defaultColorPair,
   invertedColorPair,
   inactiveColorPair,
