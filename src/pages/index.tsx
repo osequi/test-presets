@@ -1,9 +1,9 @@
-import { default as usePreset } from "../usePreset";
+import { default as useToken } from "../useToken";
 
 const Home = () => {
-  const defaultLink = usePreset("link", "default");
-  const defaultLinkDefaultState = usePreset("link", "default", "default");
-  const defaultFont = usePreset("font", "default");
+  const defaultLink = useToken("link", "default");
+  const defaultLinkDefaultState = useToken("link", "default", "default");
+  const defaultFont = useToken("font", "default");
 
   return (
     <ul>
