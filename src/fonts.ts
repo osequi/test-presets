@@ -19,7 +19,7 @@ const defaultFont: TFontsToken = {
   styles: [
     {
       css: {
-        fontFamily: "default",
+        fontFamily: "monospace",
         lineHeight: 1.5,
       },
     },

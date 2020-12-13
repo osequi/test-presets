@@ -1,25 +1,33 @@
+import type { CSSProperties } from "react";
+
 import type { TColorId, TColorNames } from "./colors";
 import type { TFontId, TFontNames } from "./fonts";
 import type { TLinkId, TLinkNames } from "./links";
+import type { TBreakpointId, TBreakpointNames } from "./breakpoints";
 
 import { default as colors } from "./colors";
 import { default as fonts } from "./fonts";
 import { default as links } from "./links";
+import { default as breakpoints } from "./breakpoints";
 
 /**
  * Collects all tokens.
  */
-const tokens: TToken[] = [...colors, ...fonts, ...links];
+const tokens: TToken[] = [...colors, ...fonts, ...links, ...breakpoints];
 
 /**
  * Defines the available design token id types.
  */
-export type TTokenIds = TColorId | TFontId | TLinkId;
+export type TTokenIds = TColorId | TFontId | TLinkId | TBreakpointId;
 
 /**
  * Defines the available design token id names.
  */
-export type TTokenNames = TColorNames | TFontNames | TLinkNames;
+export type TTokenNames =
+  | TColorNames
+  | TFontNames
+  | TLinkNames
+  | TBreakpointNames;
 
 /**
  * Defines the states an element can be.
@@ -31,7 +39,7 @@ export type TState = "default" | "active" | "visited" | "disabled" | "hidden";
  * Defines a design token id.
  * Uniquely identifies a design token.
  */
-export type TId = {
+export type TTokenId = {
   type?: TTokenIds;
   name?: TTokenNames;
   state?: TState;
@@ -44,7 +52,14 @@ export type TId = {
  */
 export type TStyle = {
   state?: TState;
-  tokens?: TId[];
+  tokens?: TTokenId[];
+  css?: object;
+  responsive?: TResponsiveStyle[];
+};
+
+export type TResponsiveStyle = {
+  breakpoint?: TBreakpointNames;
+  tokens?: TTokenId[];
   css?: object;
 };
 
@@ -54,7 +69,7 @@ export type TStyle = {
  * - Fully styled.
  */
 export type TToken = {
-  id?: TId;
+  id?: TTokenId;
   styles: TStyle[];
 };
 

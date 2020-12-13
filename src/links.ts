@@ -24,6 +24,24 @@ const defaultLink: TToken = {
       css: {
         textDecoration: "underline",
       },
+      responsive: [
+        {
+          breakpoint: "mobile",
+          tokens: [
+            {
+              type: "colors",
+              name: "inverted",
+            },
+            {
+              type: "font",
+              name: "Default",
+            },
+          ],
+          css: {
+            textTransform: "uppercase",
+          },
+        },
+      ],
     },
     {
       state: "active",

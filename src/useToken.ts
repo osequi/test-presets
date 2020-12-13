@@ -3,17 +3,62 @@ import { default as theme } from "./theme";
 import { isNil, isArray } from "lodash";
 
 /**
+ * Loads (recursively) a set of tokens.
+ * @param 	tokens	An array of tokens.
+ * @return          A style object
+ */
+const loadTokens = (tokens) => {
+  return (
+    tokens &&
+    tokens.reduce((result, token) => {
+      const { type, name, state } = token;
+
+      const newToken = loadAll(type, name, state);
+
+      const newTokenFiltered =
+        newToken && newToken.filter((item) => item.state === state).pop();
+
+      return { state, ...result, ...newTokenFiltered };
+    }, {})
+  );
+};
+
+/**
+ * Loads (recursively) the responsive style declarations.
+ * @param 	responsive	An array of responsive style declarations.
+ * @return          	A style object
+ */
+const loadResponsive = (responsive) => {
+  return (
+    responsive &&
+    responsive.reduce((result, item) => {
+      const { breakpoint, tokens, css } = item;
+
+      const mediaQuery = loadAll("breakpoint", breakpoint).pop();
+      const token = loadTokens(tokens);
+
+      let query = {};
+      for (let key in mediaQuery) {
+        query[key] = { ...token, ...css };
+      }
+
+      return { ...result, ...query };
+    }, {})
+  );
+};
+
+/**
  * Loads tokens recursively.
  * @param	type	The token type.
  * @param	name	The token name.
  * @param	state	The stoken state.
  * @return			An array of style objects.
  * @example
- * loadTokensRecursively("font", "Default") => {"fontFamily":"default","lineHeight":1.5}
- * loadTokensRecursively("link", "default", "default") => {"state":"default","color":"#000","backgroundColor":"#fff","fontFamily":"Nimbus Sans Regular","fontWeight":400,"lineHeight":1.25,"textDecoration":"underline"}
- * loadTokensRecursively("link", "default") => [{"state":"default","color":"#000","backgroundColor":"#fff","fontFamily":"Nimbus Sans Regular","fontWeight":400,"lineHeight":1.25,"textDecoration":"underline"},{"state":"active","color":"red","backgroundColor":"#000","textDecoration":"line-through"},{"state":"visited","color":"gray","backgroundColor":"#000","textDecoration":"underline"}]
+ * loadAll("font", "Default") => {"fontFamily":"default","lineHeight":1.5}
+ * loadAll("link", "default", "default") => {"state":"default","color":"#000","backgroundColor":"#fff","fontFamily":"Nimbus Sans Regular","fontWeight":400,"lineHeight":1.25,"textDecoration":"underline"}
+ * loadAll("link", "default") => [{"state":"default","color":"#000","backgroundColor":"#fff","fontFamily":"Nimbus Sans Regular","fontWeight":400,"lineHeight":1.25,"textDecoration":"underline"},{"state":"active","color":"red","backgroundColor":"#000","textDecoration":"line-through"},{"state":"visited","color":"gray","backgroundColor":"#000","textDecoration":"underline"}]
  */
-const loadTokensRecursively = (
+const loadAll = (
   type?: TTokenIds,
   name?: TTokenNames,
   state?: TState
@@ -51,31 +96,12 @@ const loadTokensRecursively = (
   return (
     styles2 &&
     styles2.map((style) => {
-      const { state, tokens: styleTokens, css } = style;
+      const { tokens: styleTokens, css, responsive } = style;
 
-      const styleTokensObject =
-        styleTokens &&
-        styleTokens.reduce((result, styleToken) => {
-          const {
-            type: styleTokenType,
-            name: styleName,
-            state: styleTokenState,
-          } = styleToken;
+      const styleTokensObject = loadTokens(styleTokens);
+      const responsiveObject = loadResponsive(responsive);
 
-          const newToken = loadTokensRecursively(
-            styleTokenType,
-            styleName,
-            styleTokenState
-          );
-
-          const newTokenFiltered =
-            newToken &&
-            newToken.filter((item) => item.state === styleTokenState).pop();
-
-          return { state, ...result, ...newTokenFiltered };
-        }, {});
-
-      return { ...styleTokensObject, ...css };
+      return { ...styleTokensObject, ...css, ...responsiveObject };
     })
   );
 };
@@ -96,7 +122,7 @@ const useToken = (
   name?: TTokenNames,
   state?: TState
 ): object[] | object | null => {
-  const tokens = loadTokensRecursively(type, name, state);
+  const tokens = loadAll(type, name, state);
 
   /**
    * Returns the token as is when it's not an array.
