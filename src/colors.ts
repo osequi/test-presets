@@ -1,33 +1,74 @@
-import type { TPreset, TStyle } from "./types";
+import type { TToken } from "./theme";
 
-export type TColor = {
-  preset: TPreset;
-  styles: TStyle[];
-};
+const textColor = "#000";
+const backgroundColor = "#fff";
+const highlightColor = "red";
+const shaderColor = "gray";
 
-const defaultColors: TColor = {
-  preset: {
+const defaultColorPair: TToken = {
+  id: {
     type: "colors",
     name: "default",
   },
   styles: [
     {
-      state: "default",
       css: {
-        color: "black",
-        backgroundColor: "white",
-      },
-    },
-    {
-      state: "disabled",
-      css: {
-        color: "gray",
-        backgroundColor: "white",
+        color: textColor,
+        backgroundColor: backgroundColor,
       },
     },
   ],
 };
 
-const colors: TColor[] = [defaultColors];
+const invertedColorPair: TToken = {
+  id: {
+    type: "colors",
+    name: "inverted",
+  },
+  styles: [
+    {
+      css: {
+        color: backgroundColor,
+        backgroundColor: textColor,
+      },
+    },
+  ],
+};
 
+const inactiveColorPair: TToken = {
+  id: {
+    type: "colors",
+    name: "inactive",
+  },
+  styles: [
+    {
+      css: {
+        color: shaderColor,
+        backgroundColor: textColor,
+      },
+    },
+  ],
+};
+
+const highlightedColorPair: TToken = {
+  id: {
+    type: "colors",
+    name: "highlighted",
+  },
+  styles: [
+    {
+      css: {
+        color: highlightColor,
+        backgroundColor: textColor,
+      },
+    },
+  ],
+};
+
+const colors: TToken[] = [
+  defaultColorPair,
+  invertedColorPair,
+  inactiveColorPair,
+  highlightedColorPair,
+];
 export default colors;

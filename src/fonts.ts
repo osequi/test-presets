@@ -1,18 +1,12 @@
-import type { TPreset, TStyle } from "./types";
+import type { TToken } from "./theme";
 
-export type TFont = {
-  preset: TPreset;
-  styles: TStyle[];
-};
-
-const defaultFont: TFont = {
-  preset: {
+const defaultFont: TToken = {
+  id: {
     type: "font",
-    name: "default",
+    name: "Default",
   },
   styles: [
     {
-      state: "default",
       css: {
         fontFamily: "default",
         lineHeight: 1.5,
@@ -21,6 +15,21 @@ const defaultFont: TFont = {
   ],
 };
 
-const fonts: TFont[] = [defaultFont];
+const nimbusSansRegular: TToken = {
+  id: {
+    type: "font",
+    name: "Nimbus Sans Regular",
+  },
+  styles: [
+    {
+      css: {
+        fontFamily: "Nimbus Sans Regular",
+        fontWeight: 400,
+        lineHeight: 1.25,
+      },
+    },
+  ],
+};
 
+const fonts: TToken[] = [defaultFont, nimbusSansRegular];
 export default fonts;

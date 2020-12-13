@@ -1,28 +1,21 @@
-import type { TPreset, TStyle } from "./types";
+import type { TToken } from "./theme";
 
-export type TLink = {
-  preset: TPreset;
-  styles: TStyle[];
-};
-
-const defaultLink: TLink = {
-  preset: {
+const defaultLink: TToken = {
+  id: {
     type: "link",
     name: "default",
   },
   styles: [
     {
-      state: "default",
-      presets: [
+      name: "default",
+      tokens: [
         {
           type: "colors",
           name: "default",
-          state: "default",
         },
         {
           type: "font",
-          name: "default",
-          state: "default",
+          name: "Nimbus Sans Regular",
         },
       ],
       css: {
@@ -30,18 +23,23 @@ const defaultLink: TLink = {
       },
     },
     {
-      state: "hidden",
+      name: "active",
+      tokens: [
+        {
+          type: "colors",
+          name: "highlighted",
+        },
+      ],
       css: {
-        display: "none",
+        textDecoration: "line-through",
       },
     },
     {
-      state: "disabled",
-      presets: [
+      name: "visited",
+      tokens: [
         {
           type: "colors",
-          name: "default",
-          state: "disabled",
+          name: "inactive",
         },
       ],
       css: {
@@ -51,6 +49,5 @@ const defaultLink: TLink = {
   ],
 };
 
-const links: TLink[] = [defaultLink];
-
+const links: TToken[] = [defaultLink];
 export default links;
