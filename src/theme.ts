@@ -57,6 +57,9 @@ export type TStyle = {
   responsive?: TResponsiveStyle[];
 };
 
+/**
+ * Defines a responsive style.
+ */
 export type TResponsiveStyle = {
   breakpoint?: TBreakpointNames;
   tokens?: TTokenId[];

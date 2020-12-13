@@ -1,17 +1,24 @@
-import type { TTokenIds, TTokenNames, TState } from "./theme";
+import type {
+  TTokenIds,
+  TTokenNames,
+  TState,
+  TTokenId,
+  TResponsiveStyle,
+} from "./theme";
 import { default as theme } from "./theme";
 import { isNil, isArray } from "lodash";
 
 /**
  * Loads (recursively) a set of tokens.
  * @param 	tokens	An array of tokens.
+ * @param	state	The state of the tokens.
  * @return          A style object
  */
-const loadTokens = (tokens) => {
+const loadTokens = (tokens: TTokenId[], state?: TState) => {
   return (
     tokens &&
     tokens.reduce((result, token) => {
-      const { type, name, state } = token;
+      const { type, name, state: tokenState } = token;
 
       const newToken = loadAll(type, name, state);
 
@@ -26,9 +33,10 @@ const loadTokens = (tokens) => {
 /**
  * Loads (recursively) the responsive style declarations.
  * @param 	responsive	An array of responsive style declarations.
+ * @param	state		The state of the tokens.
  * @return          	A style object
  */
-const loadResponsive = (responsive) => {
+const loadResponsive = (responsive: TResponsiveStyle) => {
   return (
     responsive &&
     responsive.reduce((result, item) => {
@@ -96,9 +104,9 @@ const loadAll = (
   return (
     styles2 &&
     styles2.map((style) => {
-      const { tokens: styleTokens, css, responsive } = style;
+      const { state, tokens, css, responsive } = style;
 
-      const styleTokensObject = loadTokens(styleTokens);
+      const styleTokensObject = loadTokens(tokens, state);
       const responsiveObject = loadResponsive(responsive);
 
       return { ...styleTokensObject, ...css, ...responsiveObject };
