@@ -23,7 +23,7 @@ const defaultLink: TToken = {
         {
           type: "scale",
           name: "modular",
-          props: { points: 2 },
+          props: 2,
         },
       ],
       css: {

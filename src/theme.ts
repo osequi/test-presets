@@ -52,6 +52,7 @@ export type TTokenId = {
   type?: TTokenIds;
   name?: TTokenNames;
   state?: TState;
+  props?: any;
 };
 
 /**

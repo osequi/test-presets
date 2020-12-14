@@ -69,7 +69,8 @@ const loadResponsive = (responsive: TResponsiveStyle) => {
 const loadAll = (
   type?: TTokenIds,
   name?: TTokenNames,
-  state?: TState
+  state?: TState,
+  props?: any
 ): object[] | null => {
   if (isNil(type) || isNil(name)) return null;
 
@@ -83,12 +84,15 @@ const loadAll = (
     tokens &&
     tokens.find((token) => {
       const { id } = token;
-      const { type: tokenType, name: Name } = id;
-      return type === tokenType && name === Name;
+      const { type: tokenType, name: tokenName } = id;
+      return type === tokenType && name === tokenName;
     });
+  if (isNil(token)) return null;
 
-  if (isNil(token?.styles)) return null;
-  const { styles } = token;
+  const token2 = typeof token === "function" ? token(props) : token;
+
+  if (isNil(token2?.styles)) return null;
+  const { styles } = token2;
 
   /**
    * Loads token styles for a state.
@@ -128,9 +132,10 @@ const loadAll = (
 const useToken = (
   type?: TTokenIds,
   name?: TTokenNames,
-  state?: TState
+  state?: TState,
+  props?: any
 ): object[] | object | null => {
-  const tokens = loadAll(type, name, state);
+  const tokens = loadAll(type, name, state, props);
 
   /**
    * Returns the token as is when it's not an array.

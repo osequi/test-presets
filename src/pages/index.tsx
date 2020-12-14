@@ -5,7 +5,6 @@ import { default as useToken } from "../useToken";
 
 const Home = () => {
   const defaultLink = useToken("link", "default");
-  //const {default, active, visited} = useToken("link", "default");
   const defaultLinkDefaultState = useToken("link", "default", "default");
   const defaultFont = useToken("font", "Default");
   const failedFont = useToken("font", "default");
