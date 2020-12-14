@@ -20,6 +20,11 @@ const defaultLink: TToken = {
           type: "font",
           name: "Nimbus Sans Regular",
         },
+        {
+          type: "scale",
+          name: "modular",
+          props: { points: 2 },
+        },
       ],
       css: {
         textDecoration: "underline",

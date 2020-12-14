@@ -1,7 +1,7 @@
 import type { TToken } from "./theme";
 
 export type TBreakpointId = "breakpoint";
-export type TBreakpointNames = "mobile" | "tablet" | "laptop" | "dekstop";
+export type TBreakpointNames = "mobile" | "tablet" | "laptop" | "desktop";
 
 const mobile: TToken = {
   id: {

@@ -5,6 +5,8 @@ import type { TFontId, TFontNames } from "./fonts";
 import type { TLinkId, TLinkNames } from "./links";
 import type { TBreakpointId, TBreakpointNames } from "./breakpoints";
 
+import { TScaleId, TScaleNames, scales } from "./scales";
+
 import { default as colors } from "./colors";
 import { default as fonts } from "./fonts";
 import { default as links } from "./links";
@@ -13,12 +15,18 @@ import { default as breakpoints } from "./breakpoints";
 /**
  * Collects all tokens.
  */
-const tokens: TToken[] = [...colors, ...fonts, ...links, ...breakpoints];
+const tokens: TToken[] = [
+  ...colors,
+  ...fonts,
+  ...links,
+  ...breakpoints,
+  ...scales,
+];
 
 /**
  * Defines the available design token id types.
  */
-export type TTokenIds = TColorId | TFontId | TLinkId | TBreakpointId;
+export type TTokenIds = TColorId | TFontId | TLinkId | TBreakpointId | TScaleId;
 
 /**
  * Defines the available design token id names.
@@ -27,7 +35,8 @@ export type TTokenNames =
   | TColorNames
   | TFontNames
   | TLinkNames
-  | TBreakpointNames;
+  | TBreakpointNames
+  | TScaleNames;
 
 /**
  * Defines the states an element can be.
@@ -73,7 +82,8 @@ export type TResponsiveStyle = {
  */
 export type TToken = {
   id?: TTokenId;
-  styles: TStyle[];
+  styles?: TStyle[];
+  settings?: object;
 };
 
 const theme = {
